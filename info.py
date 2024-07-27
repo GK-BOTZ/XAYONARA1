@@ -18,6 +18,8 @@ API_HASH = environ.get('API_HASH', '9f8082811c4e168f298e4574da790383')
 BOT_TOKEN = environ.get('BOT_TOKEN', "")
 
 # Bot settings
+REQUEST_TO_JOIN_MODE = bool(environ.get('REQUEST_TO_JOIN_MODE', True)) # Set True Or False
+TRY_AGAIN_BTN = bool(environ.get('TRY_AGAIN_BTN', True)) # Set True Or False (This try again button is only for request to join fsub not for normal fsub)
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', True))
 
