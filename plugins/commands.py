@@ -82,7 +82,7 @@ async def start(client, message):
         )
         return
     
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
+    if AUTH_CHANNEL and await is_req_subscribed(client, message):
         try:
             if REQUEST_TO_JOIN_MODE == True:
                 invite_link = await client.create_chat_invite_link(chat_id=(int(AUTH_CHANNEL)), creates_join_request=True)
