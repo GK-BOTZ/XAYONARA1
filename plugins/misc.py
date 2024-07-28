@@ -1,12 +1,22 @@
 import os
 from pyrogram import Client, filters, enums
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
-from info import IMDB_TEMPLATE
-from utils import extract_user, get_file_id, get_poster, last_online
-from utils import react_msg
+from utils import extract_user, get_file_id, get_poster, last_online, react_msg
 import time
 from datetime import datetime
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ChatJoinRequest
+from database.users_chats_db import db
+from info import ADMINS, AUTH_CHANNEL, IMDB_TEMPLATE
+
+@Client.on_chat_join_request(filters.chat(AUTH_CHANNEL))
+async def join_reqs(client, message: ChatJoinRequest):
+  if not await db.find_join_req(message.from_user.id):
+    await db.add_join_req(message.from_user.id)
+
+@Client.on_message(filters.command("delreq") & filters.private & filters.user(ADMINS))
+async def del_requests(client, message):
+    await db.del_join_req()    
+    await message.reply("<b>⚙ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ᴄʜᴀɴɴᴇʟ ʟᴇғᴛ ᴜꜱᴇʀꜱ ᴅᴇʟᴇᴛᴇᴅ</b>")
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
