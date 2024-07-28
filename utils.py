@@ -54,7 +54,9 @@ class temp(object):
     SETTINGS = {}
     IMDB_CAP = {}
 
-async def is_subscribed(bot, query):
+async def is_req_subscribed(bot, query):
+    if await db.find_join_req(query.from_user.id):
+        return True
     try:
         user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
     except UserNotParticipant:
@@ -64,9 +66,8 @@ async def is_subscribed(bot, query):
     else:
         if user.status != enums.ChatMemberStatus.BANNED:
             return True
-
     return False
-
+    
 async def react_msg(client, message):
     emojis = [
         "👍",
