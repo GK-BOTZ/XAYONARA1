@@ -27,6 +27,12 @@ TIMEZONE = "Asia/Kolkata"
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     try:
+       g = await db.get_reqs()
+       for d in g:
+          print(d)
+    except Exception as e:
+       print('st', e)
+    try:
         await react_msg(client, message)
     except:
         pass
