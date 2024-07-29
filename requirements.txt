@@ -45,5 +45,7 @@ colorama
 telegraph
 PyPDF2
 
-
-  
+Flask
+gunicorn
+werkzeug
+itsdangerous
